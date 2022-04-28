@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>Document</title>
+</head>
+<body>
+<div class="bg-dark text-white text-center align-center pt-4" style="height: 70px;">TODOS LIST</div>
+<div class="container mx-auto justify-content-center mt-5">
+    <h2 class="lead">WellCome to your todo List</h2>
+    <p class="lead">you will kepp your todos in pairs</p>
+    <div class="row container-fluid">
+        <div class="col-sm-6 col-lg-5">
+            <form action="/" class="justify-content-center needs-validation" method="post">
+                <div class="form-floating">
+                    <label for="fname" class="form-label">Enter your first activity</label>
+                    <input type="text" class="form-control w-100" name="firstname">
+                    <p class="invalid-feedback">please don't skip out this field</p>
+                    <p class="valid-feedback">valid</p>
+                </div>
+                <div class="form-floating">
+                    <label for="fname" class="form-label">Enter your second activity</label>
+                    <input type="text" class="form-control w-100 mt-4" name="lastname">
+                    <p class="invalid-feedback">please don't skip out this field</p>
+                    <p class="valid-feedback">valid</p>
+                </div>
+                <div class="form-floating">
+                    <label for="fname" class="form-label">Enter your last activity</label>
+                    <input type="text" class="form-control w-100 h-80 mt-4" name="username">
+                    <input type="submit" id="btn" class="btn btn-dark text-white w-25 mt-5" name="" id="">
+                    <p class="invalid-feedback">please don't skip out this field</p>
+                    <p class="valid-feedback">valid</p>
+                </div>
+            </form>
+
+        </div>
+        <div class="col-sm-6 col-lg-7">
+                <% if(data){%>    
+                    <%  data.forEach(datavalue => {%>
+                       <div class="container mt-5 col-4 w-100  justify-content-center rounded mt-5">
+                        <h1 class="lead">your todos</h1>
+                        <div class="bg-dark border-primary text-white fw-bolder w-100 rounded  px-5 py-3">   
+                            <p>1.<%=datavalue.firstname%></p>
+                            <p>1.<%=datavalue.lastname%></p>
+                            <p>1.<%=datavalue.username%></p>
+                          <a class= "<%=datavalue.id %>  btn myButton btn-danger text-white ">delete</a>
+                          <a class="<%=datavalue.id %>  btn  btn-success text-white mt-sm-4 update">Update</a>
+                            </div>
+                       </div>
+                   <% }) %> 
+                        
+                  <% } %>
+        </div>
+    </div>     
+  <script>
+  
+      const buttons = document.querySelectorAll('.myButton');
+      buttons.forEach(btn =>{
+          btn.addEventListener('click', ()=>{
+             const id = `/${btn.classList[0]}`;
+             fetch(id, {
+                 method:"DELETE"
+             })
+             window.location.href = "/"
+          })
+      })
+
+      const updateButtons = document.querySelectorAll('.update');
+      updateButtons.forEach(button => {
+          button.addEventListener('click', ()=>{
+              const id = `/${button.classList[0]}`;
+              fetch(id, {
+                  method : "UPDATE"
+              })
+            //   window.location.href = "/"
+          })
+      })
+  </script>
+</body>
+</html>
